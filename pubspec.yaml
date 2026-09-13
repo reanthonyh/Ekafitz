@@ -7,14 +7,14 @@ environment:
   sdk: ^3.13.3
 
 dependencies:
-  drift: ^2.35.0
-  drift_flutter: ^0.3.1
   flutter:
     sdk: flutter
 
   flutter_localizations:
     sdk: flutter
 
+  drift: ^2.35.0
+  drift_flutter: ^0.3.1
   freezed_annotation: ^3.1.0
   get_it: ^9.2.1
   intl: any
@@ -25,6 +25,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
   flutter_lints: ^6.0.0
   freezed: ^4.0.1
   build_runner: ^2.16.1
