@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'training_program.dart';
+import 'fitness/training_program.dart';
 
 part 'fitness_profile.freezed.dart';
 
