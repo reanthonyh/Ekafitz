@@ -8,7 +8,10 @@ enum Gender { male, female }
 class User({
   required final String id,
   required final String fullName,
-  final String? email,
+  required final String email,
   required final DateTime birthDate,
   required final Gender gender,
+  required final String passwordHash,
+  required final DateTime createdAt,
+  required final DateTime updatedAt,
 }) with _$User;

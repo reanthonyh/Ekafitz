@@ -13,4 +13,6 @@ class Workout({
   required final int reps,
   required final double? weight,
   required final WorkoutEquipment? equipment,
+  required final DateTime createdAt,
+  required final DateTime updatedAt,
 }) with _$Workout;

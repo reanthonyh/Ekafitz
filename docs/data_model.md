@@ -189,3 +189,14 @@ graph TD;
 
     ViewHistory[View Progress] --> LogSession;
 ```
+
+### Summary Table of Function-to-Data Mapping
+
+| Functional Need           | Data Source Tables                                            | Purpose                                                        |
+| :------------------------ | :------------------------------------------------------------ | :------------------------------------------------------------- |
+| **User Identification**   | `USER`, `FITNESS_PROFILE`                                     | Who is using the system?                                       |
+| **Goal Setting**          | `TRAINING_PROGRAM`                                            | What is the overarching goal?                                  |
+| **Planning/Scheduling**   | `TRAINING_PROGRAM` $\to$ `WEEK_SCHEDULE` $\to$ `DAY_SCHEDULE` | When and what should the user do?                              |
+| **Defining Exercises**    | `WORKOUT`                                                     | What exercises exist? (The library)                            |
+| **Recording Performance** | `WORKOUT_INSTANCE`                                            | What did the user _actually_ do today? (The raw data)          |
+| **Analyzing Trends**      | `WORKOUT_INSTANCE` (aggregated)                               | Has the user gotten stronger/faster/more consistent over time? |
