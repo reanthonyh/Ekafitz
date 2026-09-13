@@ -1,0 +1,8 @@
+{
+  "@@locale": "en",
+  "@@context": "ENG Dictionary",
+  "app_name": "EKafitz",
+  "@app_name": {
+    "description": "App Name"
+  }
+}
