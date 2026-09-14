@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ekafitz/core/localizations/intl.dart';
+import 'package:ekafitz/presentation/pages/home_page.dart';
+
+import 'core/injection/locator.dart';
 
 void main() {
+  initializeRepositories();
+
   runApp(const MainApp());
 }
 
@@ -10,8 +15,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
+    return MaterialApp(
+      home: const HomePage(),
       supportedLocales: EkafitzDictionary.supportedLocales,
       localizationsDelegates: EkafitzDictionary.localizationsDelegates,
     );
