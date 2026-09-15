@@ -1,13 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:ekafitz/core/localizations/intl.dart';
 import 'package:ekafitz/presentation/pages/home_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/injection/locator.dart';
 
 void main() {
   initializeRepositories();
 
-  runApp(const MainApp());
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {

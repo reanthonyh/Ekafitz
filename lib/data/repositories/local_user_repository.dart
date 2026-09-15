@@ -52,6 +52,8 @@ abstract class _UserMapper {
   }
 
   static UserTableCompanion toTableCompanion(User user) {
+    if (user.id == null) log("new User ID created for ${user.fullName}");
+
     final id = user.id ?? Uuid().v4();
 
     return UserTableCompanion.insert(

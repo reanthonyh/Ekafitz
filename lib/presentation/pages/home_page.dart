@@ -1,3 +1,5 @@
+import 'package:ekafitz/core/util/constants.dart';
+import 'package:ekafitz/presentation/pages/user_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ekafitz/domain/usecases.dart';
@@ -37,8 +39,7 @@ class _HomePageState extends State<HomePage> {
     });
     try {
       // Try to get user with a fixed id (could be from auth)
-      final userId = 'default_user';
-      final user = await _getUserUseCase.call(userId: userId);
+      final user = await _getUserUseCase.call(userId: defaultUserKey);
       setState(() {
         _user = user;
         _isLoading = false;
@@ -46,8 +47,8 @@ class _HomePageState extends State<HomePage> {
     } catch (e) {
       // If not found, create and save a default user
       final defaultUser = User(
-        id: 'default_user',
-        fullName: 'Default User',
+        id: defaultUserKey,
+        fullName: 'Default Name',
         email: 'default@example.com',
         birthDate: DateTime(1990, 1, 1),
         gender: Gender.male,
@@ -79,6 +80,17 @@ class _HomePageState extends State<HomePage> {
       return Scaffold(body: Center(child: Text('Error: $_error')));
     }
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Home"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(UserProfilePage.route());
+            },
+            icon: Icon(Icons.person_add),
+          ),
+        ],
+      ),
       body: Center(
         child: _user != null
             ? Text('User: ${_user!.fullName} (${_user!.email})')
