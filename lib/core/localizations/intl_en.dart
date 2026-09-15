@@ -11,4 +11,17 @@ class EkafitzDictionaryEn extends EkafitzDictionary {
 
   @override
   String get app_name => 'EKafitz';
+
+  @override
+  String get personal_info_title => 'Your personal info';
+
+  @override
+  String age_label(int age) {
+    return 'Age: $age yrs';
+  }
+
+  @override
+  String email_label(String email) {
+    return 'Email: $email';
+  }
 }

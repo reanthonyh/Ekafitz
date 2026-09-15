@@ -18,6 +18,9 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const HomePage(),
+      theme: ThemeData.from(
+        colorScheme: .fromSeed(seedColor: Color(0xFFaa4434), brightness: .dark),
+      ),
       supportedLocales: EkafitzDictionary.supportedLocales,
       localizationsDelegates: EkafitzDictionary.localizationsDelegates,
     );

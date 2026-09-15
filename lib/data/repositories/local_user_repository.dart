@@ -42,7 +42,7 @@ abstract class _UserMapper {
     return User(
       id: data.id,
       fullName: data.fullName,
-      email: data.fullName,
+      email: data.email,
       birthDate: data.birthDate ?? DateTime(2000),
       gender: data.gender,
       passwordHash: data.passwordHash,

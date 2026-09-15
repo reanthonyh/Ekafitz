@@ -4,5 +4,29 @@
   "app_name": "EKafitz",
   "@app_name": {
     "description": "App Name"
+  },
+  "personal_info_title": "Your personal info",
+  "@personal_info_title": {
+    "description": "Text Title for the User Personal Page - title"
+  },
+  "age_label": "Age: {age} yrs",
+  "@age_label": {
+    "description": "Label that present the age integer",
+    "placeholders": {
+      "age": {
+        "type": "int",
+        "example": "18"
+      }
+    }
+  },
+  "email_label": "Email: {email}",
+  "@email_label": {
+    "description": "Label that presents a email",
+    "placeholders": {
+      "email": {
+        "type": "String",
+        "example": "user@example.com"
+      }
+    }
   }
 }

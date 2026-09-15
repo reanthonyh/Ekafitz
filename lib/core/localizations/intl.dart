@@ -99,6 +99,24 @@ abstract class EkafitzDictionary {
   /// In en, this message translates to:
   /// **'EKafitz'**
   String get app_name;
+
+  /// Text Title for the User Personal Page - title
+  ///
+  /// In en, this message translates to:
+  /// **'Your personal info'**
+  String get personal_info_title;
+
+  /// Label that present the age integer
+  ///
+  /// In en, this message translates to:
+  /// **'Age: {age} yrs'**
+  String age_label(int age);
+
+  /// Label that presents a email
+  ///
+  /// In en, this message translates to:
+  /// **'Email: {email}'**
+  String email_label(String email);
 }
 
 class _EkafitzDictionaryDelegate
