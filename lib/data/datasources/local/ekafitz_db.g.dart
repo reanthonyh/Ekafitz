@@ -3702,6 +3702,9 @@ abstract class _$EkafitzDatabase extends GeneratedDatabase {
     workoutTable,
     workoutInstanceTable,
   ];
+  @override
+  DriftDatabaseOptions get options =>
+      const DriftDatabaseOptions(storeDateTimeAsText: true);
 }
 
 typedef $$UserTableTableCreateCompanionBuilder = UserTableCompanion Function({

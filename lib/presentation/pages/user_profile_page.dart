@@ -23,28 +23,23 @@ class UserProfilePage extends ConsumerWidget {
           data: (user) {
             return ListView(
               padding: const .symmetric(horizontal: 15, vertical: 10),
-              children: [
-                UserCardHeader(user: user),
-                Divider(),
-              ],
+              children: [UserCardHeader(user), Divider()],
             );
           },
-          error: (Object error, StackTrace stackTrace) => Column(
-            spacing: 8,
+          error: (error, stackTrace) => Column(
+            spacing: 16,
             mainAxisAlignment: .center,
             mainAxisSize: .min,
             children: [
               Text("There was an error trying to get your information"),
               ElevatedButton.icon(
-                onPressed: () {
-                  ref.refresh(currentUserProvider(defaultUserKey));
-                },
+                onPressed: () => ref.invalidate(currentUserProvider),
                 icon: Icon(Icons.refresh),
                 label: Text('Retry'),
               ),
             ],
           ),
-          loading: () => CircularProgressIndicator.adaptive(),
+          loading: () => Center(child: CircularProgressIndicator.adaptive()),
         ),
       ),
     );

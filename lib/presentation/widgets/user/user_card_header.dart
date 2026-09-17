@@ -2,7 +2,7 @@ import 'package:ekafitz/core/localizations/intl.dart';
 import 'package:ekafitz/domain/entities.dart' show User, Gender;
 import 'package:flutter/material.dart';
 
-final class const UserCardHeader({super.key, required this.user})
+final class const UserCardHeader(this.user, {super.key})
     extends StatelessWidget {
   final User user;
 
