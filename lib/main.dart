@@ -1,6 +1,6 @@
 import 'package:ekafitz/core/localizations/intl.dart';
 import 'package:ekafitz/presentation/pages/home_page.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/injection/locator.dart';
@@ -17,12 +17,14 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const HomePage(),
       theme: ThemeData.from(
         colorScheme: .fromSeed(seedColor: Color(0xFFaa4434), brightness: .dark),
       ),
+
       supportedLocales: EkafitzDictionary.supportedLocales,
       localizationsDelegates: EkafitzDictionary.localizationsDelegates,
+
+      home: const HomePage(),
     );
   }
 }

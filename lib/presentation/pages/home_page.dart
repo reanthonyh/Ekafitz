@@ -1,6 +1,6 @@
 import 'package:ekafitz/core/util/constants.dart';
 import 'package:ekafitz/presentation/pages/user_profile_page.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ekafitz/domain/usecases.dart';
 import 'package:ekafitz/domain/entities.dart';
