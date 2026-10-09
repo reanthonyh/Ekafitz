@@ -4,6 +4,7 @@ import '../entities.dart';
 
 abstract interface class TrainingProgramRepository {
   AsyncResult<TrainingProgram> getTrainingProgram(String id);
+  AsyncResult<List<TrainingProgram>> getAllTrainingPrograms();
   AsyncResult<List<TrainingProgram>> getTrainingProgramsByFitnessProfile(
     String fitnessProfileId,
   );

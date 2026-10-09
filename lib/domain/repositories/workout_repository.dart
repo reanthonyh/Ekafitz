@@ -13,4 +13,10 @@ abstract interface class WorkoutRepository {
     String? description,
     WorkoutEquipment? equipment,
   });
+
+  AsyncResult<Unit> saveWorkout(Workout workout);
+
+  AsyncResult<Unit> updateWorkout(Workout workout);
+
+  AsyncResult<Unit> deleteWorkout(int id);
 }

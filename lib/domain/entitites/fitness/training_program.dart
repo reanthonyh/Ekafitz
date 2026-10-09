@@ -8,13 +8,13 @@ enum FitnessObjective { weightLoss, muscleGain, maintain }
 
 @freezed
 class TrainingProgram({
-  required String id,
-  required String fitnessProfileId,
-  required String name,
-  required String description,
-  required int programDuration,
-  required DateTime startDate,
-  required DateTime createdAt,
-  required DateTime updatedAt,
-  @Default([]) List<ProgramWeek>? weeks,
+  required final String id,
+  required final String fitnessProfileId,
+  required final String name,
+  required final String description,
+  required final int programDuration,
+  required final DateTime startDate,
+  required final DateTime createdAt,
+  required final DateTime updatedAt,
+  @Default([]) final List<ProgramWeek>? weeks,
 }) with _$TrainingProgram;

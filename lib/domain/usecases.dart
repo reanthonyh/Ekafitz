@@ -7,6 +7,7 @@ export 'usecases/fitness_profile/save_fitness_profile_use_case.dart';
 export 'usecases/fitness_profile/update_fitness_profile_use_case.dart';
 
 export 'usecases/training_program/get_training_program_use_case.dart';
+export 'usecases/training_program/get_all_training_programs_use_case.dart';
 export 'usecases/training_program/get_training_programs_by_fitness_profile_use_case.dart';
 export 'usecases/training_program/save_training_program_use_case.dart';
 export 'usecases/training_program/update_training_program_use_case.dart';
@@ -33,3 +34,6 @@ export 'usecases/workout_instance/delete_workout_instance_use_case.dart';
 export 'usecases/workout/get_workout_use_case.dart';
 export 'usecases/workout/get_all_workouts_use_case.dart';
 export 'usecases/workout/query_workouts_use_case.dart';
+export 'usecases/workout/save_workout_use_case.dart';
+export 'usecases/workout/update_workout_use_case.dart';
+export 'usecases/workout/delete_workout_use_case.dart';
