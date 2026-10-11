@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'intl_en.dart';
+import 'intl_es.dart';
 
 // ignore_for_file: type=lint
 
@@ -92,7 +93,10 @@ abstract class EkafitzDictionary {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('es'),
+  ];
 
   /// App Name
   ///
@@ -354,7 +358,7 @@ class _EkafitzDictionaryDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en'].contains(locale.languageCode);
+      <String>['en', 'es'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_EkafitzDictionaryDelegate old) => false;
@@ -365,6 +369,8 @@ EkafitzDictionary lookupEkafitzDictionary(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return EkafitzDictionaryEn();
+    case 'es':
+      return EkafitzDictionaryEs();
   }
 
   throw FlutterError(

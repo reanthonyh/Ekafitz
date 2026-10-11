@@ -51,13 +51,14 @@ final class const UserCardHeader(this.user, {super.key})
                 ),
               ),
               child: Row(
+                spacing: 16,
                 children: [
                   CircleAvatar(
                     radius: 48,
                     backgroundColor: colorScheme.secondaryContainer,
                     child: const Icon(Icons.people, size: 48),
                   ),
-                  const SizedBox(width: 16),
+
                   Expanded(
                     child: Column(
                       crossAxisAlignment: .start,
@@ -81,6 +82,7 @@ final class const UserCardHeader(this.user, {super.key})
                       ],
                     ),
                   ),
+
                   Icon(
                     switch (user.gender) {
                       Gender.male => Icons.male,
@@ -95,14 +97,17 @@ final class const UserCardHeader(this.user, {super.key})
                 ],
               ),
             ),
+
             const Divider(height: 24),
+
             Row(
+              spacing: 18,
               children: [
                 Text(
                   intl.age_label(_calculateAge(user.birthDate)),
                   style: textTheme.bodyLarge?.copyWith(fontWeight: .w500),
                 ),
-                const SizedBox(width: 24),
+
                 Expanded(
                   child: Text(
                     intl.email_label(user.email),
