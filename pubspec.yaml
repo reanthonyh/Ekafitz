@@ -25,6 +25,8 @@ dependencies:
   riverpod_annotation: ^4.0.7
 
   material_ui: any
+  go_router: ^18.0.2
+  google_fonts: ^9.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

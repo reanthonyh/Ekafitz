@@ -1,9 +1,10 @@
 import 'package:ekafitz/core/localizations/intl.dart';
-import 'package:ekafitz/presentation/pages/home_page.dart';
-import 'package:material_ui/material_ui.dart';
+import 'package:ekafitz/presentation/router/main_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'core/injection/locator.dart';
+import 'core/theme/ekafitz_theme.dart';
 
 void main() {
   initializeRepositories();
@@ -16,15 +17,22 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.from(
-        colorScheme: .fromSeed(seedColor: Color(0xFFaa4434), brightness: .dark),
-      ),
+    final brightness = View.of(context).platformDispatcher.platformBrightness;
+    final TextTheme textTheme = createTextTheme(
+      context,
+      'Share Tech Mono',
+      'Inter',
+    );
+    final theme = EkafitzTheme(textTheme);
+
+    return MaterialApp.router(
+      title: 'Ekafitz',
+      theme: brightness == Brightness.light ? theme.light() : theme.dark(),
+
+      routerConfig: mainRouter,
 
       supportedLocales: EkafitzDictionary.supportedLocales,
       localizationsDelegates: EkafitzDictionary.localizationsDelegates,
-
-      home: const HomePage(),
     );
   }
 }
