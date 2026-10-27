@@ -22,9 +22,8 @@ final class const LocalTrainingProgramRepository(this._db)
       return _TrainingProgramMapper.mapFromTableData(result).toSuccess();
     } catch (e) {
       log(e.toString());
-      return Exception(
-        'LocalTrainingProgramRepository - getTrainingProgram',
-      ).toFailure();
+      return Exception('LocalTrainingProgramRepository - getTrainingProgram')
+          .toFailure();
     }
   }
 
@@ -51,10 +50,9 @@ final class const LocalTrainingProgramRepository(this._db)
   ) async {
     try {
       final result =
-          await (_db.select(_db.trainingProgramTable)
-                ..where(
-                  (table) => table.fitnessProfileId.equals(fitnessProfileId),
-                ))
+          await (_db.select(_db.trainingProgramTable)..where(
+                (table) => table.fitnessProfileId.equals(fitnessProfileId),
+              ))
               .get();
 
       return result
@@ -78,9 +76,8 @@ final class const LocalTrainingProgramRepository(this._db)
       return unit.toSuccess();
     } catch (e) {
       log(e.toString());
-      return Exception(
-        'LocalTrainingProgramRepository - saveTrainingProgram',
-      ).toFailure();
+      return Exception('LocalTrainingProgramRepository - saveTrainingProgram')
+          .toFailure();
     }
   }
 
@@ -88,16 +85,18 @@ final class const LocalTrainingProgramRepository(this._db)
   AsyncResult<Unit> updateTrainingProgram(TrainingProgram program) async {
     try {
       final companion = _TrainingProgramMapper.toTableCompanion(program);
+
+      final programId = program.id!;
+
       await (_db.update(
         _db.trainingProgramTable,
-      )..where((table) => table.id.equals(program.id))).write(companion);
+      )..where((table) => table.id.equals(programId))).write(companion);
 
       return unit.toSuccess();
     } catch (e) {
       log(e.toString());
-      return Exception(
-        'LocalTrainingProgramRepository - updateTrainingProgram',
-      ).toFailure();
+      return Exception('LocalTrainingProgramRepository - updateTrainingProgram')
+          .toFailure();
     }
   }
 
@@ -111,9 +110,8 @@ final class const LocalTrainingProgramRepository(this._db)
       return unit.toSuccess();
     } catch (e) {
       log(e.toString());
-      return Exception(
-        'LocalTrainingProgramRepository - deleteTrainingProgram',
-      ).toFailure();
+      return Exception('LocalTrainingProgramRepository - deleteTrainingProgram')
+          .toFailure();
     }
   }
 }
@@ -135,7 +133,10 @@ abstract class _TrainingProgramMapper {
   static TrainingProgramTableCompanion toTableCompanion(
     TrainingProgram program,
   ) {
-    final id = program.id.isEmpty ? Uuid().v4() : program.id;
+    final id = switch (program.id) {
+      String value when value.isNotEmpty => value,
+      _ => Uuid().v4(),
+    };
 
     return TrainingProgramTableCompanion(
       id: Value(id),

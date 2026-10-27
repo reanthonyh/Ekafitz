@@ -79,9 +79,9 @@ class WorkoutTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get workoutName => text().withLength(min: 1, max: 100)();
   TextColumn get description => text().nullable()();
-  IntColumn get sets => integer()();
-  IntColumn get reps => integer()();
-  RealColumn get weight => real()();
+  IntColumn get sets => integer().nullable()();
+  IntColumn get reps => integer().nullable()();
+  RealColumn get weight => real().nullable()();
   TextColumn get equipment => textEnum<WorkoutEquipment>().nullable()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDate)();
   DateTimeColumn get updatedAt => dateTime().nullable()();

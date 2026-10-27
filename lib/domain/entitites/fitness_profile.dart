@@ -7,14 +7,14 @@ part 'fitness_profile.freezed.dart';
 enum BodySomatotype { mesomorph, ectomorph, endomorph }
 
 @freezed
-class FitnessProfile({
-  required String id,
-  required String userId,
-  required int age,
-  required double height,
-  required double weight,
-  required BodySomatotype bodySomatotype,
-  required DateTime createdAt,
-  required DateTime updatedAt,
-  @Default([]) List<TrainingProgram>? trainingPrograms,
+class const FitnessProfile({
+  final String? id,
+  required final String userId,
+  required final int age,
+  required final double height,
+  required final double weight,
+  required final BodySomatotype bodySomatotype,
+  required final DateTime createdAt,
+  final DateTime? updatedAt,
+  @Default([]) final List<TrainingProgram>? trainingPrograms,
 }) with _$FitnessProfile;

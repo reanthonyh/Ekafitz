@@ -2557,27 +2557,27 @@ class $WorkoutTableTable extends WorkoutTable
   late final GeneratedColumn<int> sets = GeneratedColumn<int>(
     'sets',
     aliasedName,
-    false,
+    true,
     type: DriftSqlType.int,
-    requiredDuringInsert: true,
+    requiredDuringInsert: false,
   );
   static const VerificationMeta _repsMeta = const VerificationMeta('reps');
   @override
   late final GeneratedColumn<int> reps = GeneratedColumn<int>(
     'reps',
     aliasedName,
-    false,
+    true,
     type: DriftSqlType.int,
-    requiredDuringInsert: true,
+    requiredDuringInsert: false,
   );
   static const VerificationMeta _weightMeta = const VerificationMeta('weight');
   @override
   late final GeneratedColumn<double> weight = GeneratedColumn<double>(
     'weight',
     aliasedName,
-    false,
+    true,
     type: DriftSqlType.double,
-    requiredDuringInsert: true,
+    requiredDuringInsert: false,
   );
   @override
   late final GeneratedColumnWithTypeConverter<WorkoutEquipment?, String>
@@ -2663,24 +2663,18 @@ class $WorkoutTableTable extends WorkoutTable
         _setsMeta,
         sets.isAcceptableOrUnknown(data['sets']!, _setsMeta),
       );
-    } else if (isInserting) {
-      context.missing(_setsMeta);
     }
     if (data.containsKey('reps')) {
       context.handle(
         _repsMeta,
         reps.isAcceptableOrUnknown(data['reps']!, _repsMeta),
       );
-    } else if (isInserting) {
-      context.missing(_repsMeta);
     }
     if (data.containsKey('weight')) {
       context.handle(
         _weightMeta,
         weight.isAcceptableOrUnknown(data['weight']!, _weightMeta),
       );
-    } else if (isInserting) {
-      context.missing(_weightMeta);
     }
     if (data.containsKey('created_at')) {
       context.handle(
@@ -2718,15 +2712,15 @@ class $WorkoutTableTable extends WorkoutTable
       sets: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}sets'],
-      )!,
+      ),
       reps: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}reps'],
-      )!,
+      ),
       weight: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
         data['${effectivePrefix}weight'],
-      )!,
+      ),
       equipment: $WorkoutTableTable.$converterequipmentn.fromSql(
         attachedDatabase.typeMapping.read(
           DriftSqlType.string,
@@ -2762,9 +2756,9 @@ class WorkoutTableData extends DataClass
   final int id;
   final String workoutName;
   final String? description;
-  final int sets;
-  final int reps;
-  final double weight;
+  final int? sets;
+  final int? reps;
+  final double? weight;
   final WorkoutEquipment? equipment;
   final DateTime createdAt;
   final DateTime? updatedAt;
@@ -2772,9 +2766,9 @@ class WorkoutTableData extends DataClass
     required this.id,
     required this.workoutName,
     this.description,
-    required this.sets,
-    required this.reps,
-    required this.weight,
+    this.sets,
+    this.reps,
+    this.weight,
     this.equipment,
     required this.createdAt,
     this.updatedAt,
@@ -2787,9 +2781,15 @@ class WorkoutTableData extends DataClass
     if (!nullToAbsent || description != null) {
       map['description'] = Variable<String>(description);
     }
-    map['sets'] = Variable<int>(sets);
-    map['reps'] = Variable<int>(reps);
-    map['weight'] = Variable<double>(weight);
+    if (!nullToAbsent || sets != null) {
+      map['sets'] = Variable<int>(sets);
+    }
+    if (!nullToAbsent || reps != null) {
+      map['reps'] = Variable<int>(reps);
+    }
+    if (!nullToAbsent || weight != null) {
+      map['weight'] = Variable<double>(weight);
+    }
     if (!nullToAbsent || equipment != null) {
       map['equipment'] = Variable<String>(
         $WorkoutTableTable.$converterequipmentn.toSql(equipment),
@@ -2809,9 +2809,11 @@ class WorkoutTableData extends DataClass
       description: description == null && nullToAbsent
           ? const Value.absent()
           : Value(description),
-      sets: Value(sets),
-      reps: Value(reps),
-      weight: Value(weight),
+      sets: sets == null && nullToAbsent ? const Value.absent() : Value(sets),
+      reps: reps == null && nullToAbsent ? const Value.absent() : Value(reps),
+      weight: weight == null && nullToAbsent
+          ? const Value.absent()
+          : Value(weight),
       equipment: equipment == null && nullToAbsent
           ? const Value.absent()
           : Value(equipment),
@@ -2831,9 +2833,9 @@ class WorkoutTableData extends DataClass
       id: serializer.fromJson<int>(json['id']),
       workoutName: serializer.fromJson<String>(json['workoutName']),
       description: serializer.fromJson<String?>(json['description']),
-      sets: serializer.fromJson<int>(json['sets']),
-      reps: serializer.fromJson<int>(json['reps']),
-      weight: serializer.fromJson<double>(json['weight']),
+      sets: serializer.fromJson<int?>(json['sets']),
+      reps: serializer.fromJson<int?>(json['reps']),
+      weight: serializer.fromJson<double?>(json['weight']),
       equipment: $WorkoutTableTable.$converterequipmentn.fromJson(
         serializer.fromJson<String?>(json['equipment']),
       ),
@@ -2848,9 +2850,9 @@ class WorkoutTableData extends DataClass
       'id': serializer.toJson<int>(id),
       'workoutName': serializer.toJson<String>(workoutName),
       'description': serializer.toJson<String?>(description),
-      'sets': serializer.toJson<int>(sets),
-      'reps': serializer.toJson<int>(reps),
-      'weight': serializer.toJson<double>(weight),
+      'sets': serializer.toJson<int?>(sets),
+      'reps': serializer.toJson<int?>(reps),
+      'weight': serializer.toJson<double?>(weight),
       'equipment': serializer.toJson<String?>(
         $WorkoutTableTable.$converterequipmentn.toJson(equipment),
       ),
@@ -2863,9 +2865,9 @@ class WorkoutTableData extends DataClass
     int? id,
     String? workoutName,
     Value<String?> description = const Value.absent(),
-    int? sets,
-    int? reps,
-    double? weight,
+    Value<int?> sets = const Value.absent(),
+    Value<int?> reps = const Value.absent(),
+    Value<double?> weight = const Value.absent(),
     Value<WorkoutEquipment?> equipment = const Value.absent(),
     DateTime? createdAt,
     Value<DateTime?> updatedAt = const Value.absent(),
@@ -2873,9 +2875,9 @@ class WorkoutTableData extends DataClass
     id: id ?? this.id,
     workoutName: workoutName ?? this.workoutName,
     description: description.present ? description.value : this.description,
-    sets: sets ?? this.sets,
-    reps: reps ?? this.reps,
-    weight: weight ?? this.weight,
+    sets: sets.present ? sets.value : this.sets,
+    reps: reps.present ? reps.value : this.reps,
+    weight: weight.present ? weight.value : this.weight,
     equipment: equipment.present ? equipment.value : this.equipment,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt.present ? updatedAt.value : this.updatedAt,
@@ -2945,9 +2947,9 @@ class WorkoutTableCompanion extends UpdateCompanion<WorkoutTableData> {
   final Value<int> id;
   final Value<String> workoutName;
   final Value<String?> description;
-  final Value<int> sets;
-  final Value<int> reps;
-  final Value<double> weight;
+  final Value<int?> sets;
+  final Value<int?> reps;
+  final Value<double?> weight;
   final Value<WorkoutEquipment?> equipment;
   final Value<DateTime> createdAt;
   final Value<DateTime?> updatedAt;
@@ -2966,16 +2968,13 @@ class WorkoutTableCompanion extends UpdateCompanion<WorkoutTableData> {
     this.id = const Value.absent(),
     required String workoutName,
     this.description = const Value.absent(),
-    required int sets,
-    required int reps,
-    required double weight,
+    this.sets = const Value.absent(),
+    this.reps = const Value.absent(),
+    this.weight = const Value.absent(),
     this.equipment = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
-  }) : workoutName = Value(workoutName),
-       sets = Value(sets),
-       reps = Value(reps),
-       weight = Value(weight);
+  }) : workoutName = Value(workoutName);
   static Insertable<WorkoutTableData> custom({
     Expression<int>? id,
     Expression<String>? workoutName,
@@ -3004,9 +3003,9 @@ class WorkoutTableCompanion extends UpdateCompanion<WorkoutTableData> {
     Value<int>? id,
     Value<String>? workoutName,
     Value<String?>? description,
-    Value<int>? sets,
-    Value<int>? reps,
-    Value<double>? weight,
+    Value<int?>? sets,
+    Value<int?>? reps,
+    Value<double?>? weight,
     Value<WorkoutEquipment?>? equipment,
     Value<DateTime>? createdAt,
     Value<DateTime?>? updatedAt,
@@ -4035,10 +4034,11 @@ class $$UserTableTableTableManager
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (fitnessProfileTableRefs)
-                    await $_getPrefetchedData<
+                    await $_getPrefetchedDataByColumns<
                       UserTableData,
                       $UserTableTable,
-                      FitnessProfileTableData
+                      FitnessProfileTableData,
+                      $FitnessProfileTableTable
                     >(
                       currentTable: table,
                       referencedTable: $$UserTableTableReferences
@@ -4049,8 +4049,8 @@ class $$UserTableTableTableManager
                             table,
                             p0,
                           ).fitnessProfileTableRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.userId == item.id),
+                      currentColumn: 'id',
+                      referencedColumn: 'user_id',
                       typedResults: items,
                     ),
                 ];
@@ -4537,10 +4537,11 @@ class $$FitnessProfileTableTableTableManager
                   getPrefetchedDataCallback: (items) async {
                     return [
                       if (trainingProgramTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           FitnessProfileTableData,
                           $FitnessProfileTableTable,
-                          TrainingProgramTableData
+                          TrainingProgramTableData,
+                          $TrainingProgramTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$FitnessProfileTableTableReferences
@@ -4551,10 +4552,8 @@ class $$FitnessProfileTableTableTableManager
                                 table,
                                 p0,
                               ).trainingProgramTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.fitnessProfileId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'fitness_profile_id',
                           typedResults: items,
                         ),
                     ];
@@ -5048,10 +5047,11 @@ class $$TrainingProgramTableTableTableManager
                   getPrefetchedDataCallback: (items) async {
                     return [
                       if (weekScheduleTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           TrainingProgramTableData,
                           $TrainingProgramTableTable,
-                          WeekScheduleTableData
+                          WeekScheduleTableData,
+                          $WeekScheduleTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$TrainingProgramTableTableReferences
@@ -5062,10 +5062,8 @@ class $$TrainingProgramTableTableTableManager
                                 table,
                                 p0,
                               ).weekScheduleTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.trainingProgramId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'training_program_id',
                           typedResults: items,
                         ),
                     ];
@@ -5548,10 +5546,11 @@ class $$WeekScheduleTableTableTableManager
                   getPrefetchedDataCallback: (items) async {
                     return [
                       if (dayScheduleTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           WeekScheduleTableData,
                           $WeekScheduleTableTable,
-                          DayScheduleTableData
+                          DayScheduleTableData,
+                          $DayScheduleTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$WeekScheduleTableTableReferences
@@ -5562,10 +5561,8 @@ class $$WeekScheduleTableTableTableManager
                                 table,
                                 p0,
                               ).dayScheduleTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.weekScheduleId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'week_schedule_id',
                           typedResults: items,
                         ),
                     ];
@@ -5988,10 +5985,11 @@ class $$DayScheduleTableTableTableManager
                   getPrefetchedDataCallback: (items) async {
                     return [
                       if (workoutInstanceTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           DayScheduleTableData,
                           $DayScheduleTableTable,
-                          WorkoutInstanceTableData
+                          WorkoutInstanceTableData,
+                          $WorkoutInstanceTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$DayScheduleTableTableReferences
@@ -6002,10 +6000,8 @@ class $$DayScheduleTableTableTableManager
                                 table,
                                 p0,
                               ).workoutInstanceTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.dayScheduleId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'day_schedule_id',
                           typedResults: items,
                         ),
                     ];
@@ -6038,9 +6034,9 @@ typedef $$WorkoutTableTableCreateCompanionBuilder =
       Value<int> id,
       required String workoutName,
       Value<String?> description,
-      required int sets,
-      required int reps,
-      required double weight,
+      Value<int?> sets,
+      Value<int?> reps,
+      Value<double?> weight,
       Value<WorkoutEquipment?> equipment,
       Value<DateTime> createdAt,
       Value<DateTime?> updatedAt,
@@ -6050,9 +6046,9 @@ typedef $$WorkoutTableTableUpdateCompanionBuilder =
       Value<int> id,
       Value<String> workoutName,
       Value<String?> description,
-      Value<int> sets,
-      Value<int> reps,
-      Value<double> weight,
+      Value<int?> sets,
+      Value<int?> reps,
+      Value<double?> weight,
       Value<WorkoutEquipment?> equipment,
       Value<DateTime> createdAt,
       Value<DateTime?> updatedAt,
@@ -6329,9 +6325,9 @@ class $$WorkoutTableTableTableManager
                 Value<int> id = const Value.absent(),
                 Value<String> workoutName = const Value.absent(),
                 Value<String?> description = const Value.absent(),
-                Value<int> sets = const Value.absent(),
-                Value<int> reps = const Value.absent(),
-                Value<double> weight = const Value.absent(),
+                Value<int?> sets = const Value.absent(),
+                Value<int?> reps = const Value.absent(),
+                Value<double?> weight = const Value.absent(),
                 Value<WorkoutEquipment?> equipment = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime?> updatedAt = const Value.absent(),
@@ -6351,9 +6347,9 @@ class $$WorkoutTableTableTableManager
                 Value<int> id = const Value.absent(),
                 required String workoutName,
                 Value<String?> description = const Value.absent(),
-                required int sets,
-                required int reps,
-                required double weight,
+                Value<int?> sets = const Value.absent(),
+                Value<int?> reps = const Value.absent(),
+                Value<double?> weight = const Value.absent(),
                 Value<WorkoutEquipment?> equipment = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime?> updatedAt = const Value.absent(),
@@ -6386,10 +6382,11 @@ class $$WorkoutTableTableTableManager
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (workoutInstanceTableRefs)
-                    await $_getPrefetchedData<
+                    await $_getPrefetchedDataByColumns<
                       WorkoutTableData,
                       $WorkoutTableTable,
-                      WorkoutInstanceTableData
+                      WorkoutInstanceTableData,
+                      $WorkoutInstanceTableTable
                     >(
                       currentTable: table,
                       referencedTable: $$WorkoutTableTableReferences
@@ -6400,8 +6397,8 @@ class $$WorkoutTableTableTableManager
                             table,
                             p0,
                           ).workoutInstanceTableRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.workoutId == item.id),
+                      currentColumn: 'id',
+                      referencedColumn: 'workout_id',
                       typedResults: items,
                     ),
                 ];

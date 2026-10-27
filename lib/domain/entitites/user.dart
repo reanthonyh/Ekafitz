@@ -5,7 +5,7 @@ part 'user.freezed.dart';
 enum Gender { male, female }
 
 @freezed
-class User({
+class const User({
   final String? id,
   required final String fullName,
   required final String email,

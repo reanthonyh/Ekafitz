@@ -5,14 +5,14 @@ part 'workout.freezed.dart';
 enum WorkoutEquipment { dumbell }
 
 @freezed
-class Workout({
-  required final int id,
+class const Workout({
+  final int? id,
   required final String name,
   final String? description,
-  required final int sets,
-  required final int reps,
-  required final double? weight,
-  required final WorkoutEquipment? equipment,
+  final int? sets,
+  final int? reps,
+  final double? weight,
+  final WorkoutEquipment? equipment,
   required final DateTime createdAt,
-  required final DateTime updatedAt,
+  final DateTime? updatedAt,
 }) with _$Workout;

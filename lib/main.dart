@@ -6,13 +6,13 @@ import 'package:material_ui/material_ui.dart';
 import 'core/injection/locator.dart';
 import 'core/theme/ekafitz_theme.dart';
 
-void main() {
+Future<void> main() async {
   initializeRepositories();
 
   runApp(const ProviderScope(child: MainApp()));
 }
 
-class MainApp extends StatelessWidget {
+final class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override

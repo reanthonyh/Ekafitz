@@ -6,7 +6,8 @@ import 'package:ekafitz/domain/entitites/fitness/workout.dart';
 import 'package:ekafitz/domain/repositories.dart' show WorkoutRepository;
 import 'package:result_dart/result_dart.dart';
 
-final class const LocalWorkoutRepository(this._db) implements WorkoutRepository {
+final class const LocalWorkoutRepository(this._db)
+    implements WorkoutRepository {
   final EkafitzDatabase _db;
 
   @override
@@ -79,10 +80,12 @@ final class const LocalWorkoutRepository(this._db) implements WorkoutRepository 
   @override
   AsyncResult<Unit> updateWorkout(Workout workout) async {
     try {
-      final companion = _WorkoutMapper.toTableCompanion(workout, withId: true);
+      final companion = _WorkoutMapper.toTableCompanion(workout);
+      final workoutId = workout.id!;
+
       await (_db.update(
         _db.workoutTable,
-      )..where((table) => table.id.equals(workout.id))).write(companion);
+      )..where((table) => table.id.equals(workoutId))).write(companion);
 
       return unit.toSuccess();
     } catch (e) {
@@ -121,12 +124,9 @@ abstract class _WorkoutMapper {
     );
   }
 
-  static WorkoutTableCompanion toTableCompanion(
-    Workout workout, {
-    bool withId = false,
-  }) {
+  static WorkoutTableCompanion toTableCompanion(Workout workout) {
     return WorkoutTableCompanion(
-      id: withId ? Value(workout.id) : const Value.absent(),
+      id: workout.id != null ? Value(workout.id!) : const Value.absent(),
       workoutName: Value(workout.name),
       description: Value(workout.description),
       sets: Value(workout.sets),
