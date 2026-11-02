@@ -130,4 +130,26 @@ class EkafitzDatabase extends _$EkafitzDatabase {
       ),
     );
   }
+
+  Future<int> saveUser({
+    required String id,
+    required String fullName,
+    required String email,
+    required Gender gender,
+    required String passwordHash,
+  }) {
+    return into(userTable).insert(
+      UserTableCompanion.insert(
+        id: id,
+        fullName: fullName,
+        email: email,
+        gender: gender,
+        passwordHash: passwordHash,
+      ),
+    );
+  }
+
+  Stream<UserTableData> watchUserWithId(String id) {
+    return (select(userTable)..where((tbl) => tbl.id.equals(id))).watchSingle();
+  }
 }
