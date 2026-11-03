@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:drift/drift.dart';
 import 'package:ekafitz/data/datasources/local/ekafitz_db.dart';
+import 'package:ekafitz/data/mappers/workout_mapper.dart';
 import 'package:ekafitz/domain/entitites/fitness/workout.dart';
 import 'package:ekafitz/domain/repositories.dart' show WorkoutRepository;
 import 'package:result_dart/result_dart.dart';
@@ -17,7 +18,7 @@ final class const LocalWorkoutRepository(this._db)
         _db.workoutTable,
       )..where((table) => table.id.equals(id))).getSingle();
 
-      return _WorkoutMapper.mapFromTableData(result).toSuccess();
+      return WorkoutMapper.mapFromTableData(result).toSuccess();
     } catch (e) {
       log(e.toString());
       return Exception('LocalWorkoutRepository - getWorkoutById').toFailure();
@@ -29,7 +30,7 @@ final class const LocalWorkoutRepository(this._db)
     try {
       final result = await _db.select(_db.workoutTable).get();
 
-      return result.map(_WorkoutMapper.mapFromTableData).toList().toSuccess();
+      return result.map(WorkoutMapper.mapFromTableData).toList().toSuccess();
     } catch (e) {
       log(e.toString());
       return Exception('LocalWorkoutRepository - getAllWorkouts').toFailure();
@@ -57,7 +58,7 @@ final class const LocalWorkoutRepository(this._db)
 
       final result = await query.get();
 
-      return result.map(_WorkoutMapper.mapFromTableData).toList().toSuccess();
+      return result.map(WorkoutMapper.mapFromTableData).toList().toSuccess();
     } catch (e) {
       log(e.toString());
       return Exception('LocalWorkoutRepository - queryWorkouts').toFailure();
@@ -67,7 +68,7 @@ final class const LocalWorkoutRepository(this._db)
   @override
   AsyncResult<Unit> saveWorkout(Workout workout) async {
     try {
-      final companion = _WorkoutMapper.toTableCompanion(workout);
+      final companion = WorkoutMapper.toTableCompanion(workout);
       await _db.workoutTable.insertOne(companion);
 
       return unit.toSuccess();
@@ -80,7 +81,7 @@ final class const LocalWorkoutRepository(this._db)
   @override
   AsyncResult<Unit> updateWorkout(Workout workout) async {
     try {
-      final companion = _WorkoutMapper.toTableCompanion(workout);
+      final companion = WorkoutMapper.toTableCompanion(workout);
       final workoutId = workout.id!;
 
       await (_db.update(
@@ -106,35 +107,5 @@ final class const LocalWorkoutRepository(this._db)
       log(e.toString());
       return Exception('LocalWorkoutRepository - deleteWorkout').toFailure();
     }
-  }
-}
-
-abstract class _WorkoutMapper {
-  static Workout mapFromTableData(WorkoutTableData data) {
-    return Workout(
-      id: data.id,
-      name: data.workoutName,
-      description: data.description,
-      sets: data.sets,
-      reps: data.reps,
-      weight: data.weight,
-      equipment: data.equipment,
-      createdAt: data.createdAt,
-      updatedAt: data.updatedAt ?? data.createdAt,
-    );
-  }
-
-  static WorkoutTableCompanion toTableCompanion(Workout workout) {
-    return WorkoutTableCompanion(
-      id: workout.id != null ? Value(workout.id!) : const Value.absent(),
-      workoutName: Value(workout.name),
-      description: Value(workout.description),
-      sets: Value(workout.sets),
-      reps: Value(workout.reps),
-      weight: Value(workout.weight ?? 0),
-      equipment: Value(workout.equipment),
-      createdAt: Value(workout.createdAt),
-      updatedAt: Value(DateTime.now()),
-    );
   }
 }
